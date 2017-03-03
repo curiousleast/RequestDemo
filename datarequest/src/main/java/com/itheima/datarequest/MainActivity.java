@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (clickCount < 1){
-            Toast.makeText(this,"再次点击退出",0).show();
+            Toast.makeText(this,"再次点击退出",Toast.LENGTH_SHORT).show();
             clickCount++;
         }
         finish();

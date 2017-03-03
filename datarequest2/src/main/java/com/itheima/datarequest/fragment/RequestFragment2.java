@@ -12,12 +12,9 @@ import android.widget.Toast;
 
 import com.itheima.datarequest.R;
 import com.itheima.datarequest.api.PersistentCookieStore;
-import com.squareup.okhttp.Call;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.io.IOException;
 import java.net.CookieManager;
@@ -81,15 +78,15 @@ public class RequestFragment2 extends Fragment {
         switch (view.getId()) {
             case R.id.btn_request: // 请求公共数据
                 // http://www.oschina.net/action/api/news_list?pageIndex=0&catalog=1&pageSize=20
-                OkHttpUtils
-                        .get()
-                        .url("http://www.oschina.net/action/api/news_list")
-                        .addParams("pageIndex", "0")
-                        .addParams("catalog", "1")
-                        .addParams("pageSize", "20")
-                        .id(101)
-                        .build()
-                        .execute(callback);
+//                OkHttpUtils
+//                        .get()
+//                        .url("http://www.oschina.net/action/api/news_list")
+//                        .addParams("pageIndex", "0")
+//                        .addParams("catalog", "1")
+//                        .addParams("pageSize", "20")
+//                        .id(101)
+//                        .build()
+//                        .execute(callback);
                 break;
             case R.id.btn_request_private: // 请求私有数据 token
                 Toast.makeText(getActivity(), "开始请求!", Toast.LENGTH_SHORT).show();
@@ -187,30 +184,20 @@ public class RequestFragment2 extends Fragment {
         }.start();
     }
 
-    StringCallback callback = new StringCallback() {
+//    StringCallback callback = new StringCallback() {
+//
 //        @Override
-//        public void onError(Call call, Exception e, int i) {
-//            Toast.makeText(getActivity(), "请求错误", Toast.LENGTH_SHORT).show();
+//        public void onResponse(String s, int id) {
+//            Toast.makeText(getActivity(), "请求成功!", Toast.LENGTH_SHORT).show();
+//            if(id == 101){
+//                mTvContent.setText(s);
+//            } else if(id == 102){
+//                mTvContent.setText(s);
+//            }else if(id == 103){
+//                Toast.makeText(getActivity(), "登录完毕!", Toast.LENGTH_SHORT).show();
+//                mTvContent.setText(s);
+//            }
 //        }
-
-
-        @Override
-        public void onError(Call call, Exception e, int i) {
-            
-        }
-
-        @Override
-        public void onResponse(String s, int id) {
-            Toast.makeText(getActivity(), "请求成功!", Toast.LENGTH_SHORT).show();
-            if(id == 101){
-                mTvContent.setText(s);
-            } else if(id == 102){
-                mTvContent.setText(s);
-            }else if(id == 103){
-                Toast.makeText(getActivity(), "登录完毕!", Toast.LENGTH_SHORT).show();
-                mTvContent.setText(s);
-            }
-        }
-    };
+//    };
 
 }
