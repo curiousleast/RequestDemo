@@ -4,6 +4,7 @@ package com.itheima.datarequest.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static android.content.ContentValues.TAG;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,7 +51,7 @@ public class RequestFragment2 extends Fragment {
 
         // 创建客户端
         httpClient = new OkHttpClient.Builder()
-//                // 添加cookie存储器
+        // 添加cookie存储器
                 .cookieJar(new CookieJarImpl(new PersistentCookieStore(getActivity())))
                 .build();
 
@@ -63,8 +66,6 @@ public class RequestFragment2 extends Fragment {
         ButterKnife.bind(this, view);
         return view;
     }
-
-
 
 
     @OnClick({
@@ -108,8 +109,10 @@ public class RequestFragment2 extends Fragment {
 //        OkHttpClient okHttpClient = OkHttpUtils.getInstance().getOkHttpClient();
 //        CookieJar cookieJar = okHttpClient.cookieJar();
 
+        Toast.makeText(getActivity(), "退出登录!", Toast.LENGTH_SHORT).show();
+
         CookieJar cookieJar = httpClient.cookieJar();
-        if(cookieJar instanceof CookieJarImpl){
+        if (cookieJar instanceof CookieJarImpl) {
             ((CookieJarImpl) cookieJar).getCookieStore().removeAll();
         }
     }
@@ -124,7 +127,7 @@ public class RequestFragment2 extends Fragment {
 //                .build()
 //                .execute(callback);
 
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 try {
@@ -168,7 +171,7 @@ public class RequestFragment2 extends Fragment {
 //                        .build()
 //                        .execute(callback);
 
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 try {
@@ -177,7 +180,6 @@ public class RequestFragment2 extends Fragment {
                     Request request = new Request
                             .Builder()
                             .url("http://www.oschina.net/action/api/my_information?uid=993896")
-                            //.addHeader("Cookie", "oscid=kPPoEbNkRJUGtEi%2FAytC1PjDaPpI3WJYko4WZijVGdJ32lHA%2BOUgzFg0bb0t9QrnUF6BMx2TMs9VE%2BFwczAwqcxvZrJObLRw5X6NwrF3UI%2BwfX227coVGsZtGq7ZaqB3QLz765sgWpnJtsOwlnuVPw%3D%3D;")
                             //.addHeader("Cookie", "oscid=kPPoEbNkRJUGtEi%2FAytC1PjDaPpI3WJYko4WZijVGdJ32lHA%2BOUgzFg0bb0t9QrnUF6BMx2TMs9VE%2BFwczAwqcxvZrJObLRw5X6NwrF3UI%2BwfX227coVGsZtGq7ZaqB3QLz765sgWpnJtsOwlnuVPw%3D%3D;")
                             .build();
 
@@ -205,17 +207,18 @@ public class RequestFragment2 extends Fragment {
     StringCallback callback = new StringCallback() {
         @Override
         public void onError(Call call, Exception e, int i) {
+            Log.d(TAG, "onError: " + e.getMessage());
             Toast.makeText(getActivity(), "请求错误", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onResponse(String s, int id) {
             Toast.makeText(getActivity(), "请求成功!", Toast.LENGTH_SHORT).show();
-            if(id == 101){
+            if (id == 101) {
                 mTvContent.setText(s);
-            } else if(id == 102){
+            } else if (id == 102) {
                 mTvContent.setText(s);
-            }else if(id == 103){
+            } else if (id == 103) {
                 Toast.makeText(getActivity(), "登录完毕!", Toast.LENGTH_SHORT).show();
                 mTvContent.setText(s);
             }
